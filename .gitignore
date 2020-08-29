@@ -1,2 +1,5 @@
-Banana.xls
-BananaOrd.txt
+__pycache__/
+*.txt
+*.xls
+.~lock.Banana.xls#
+
