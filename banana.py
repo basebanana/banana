@@ -41,6 +41,32 @@ def banana2dec(banana, dictstart = None, shiftend = None, dictionary = None):
 
     return(v)
 
+def bananarandom(dictstart = None, shiftend = None, minlength = None, dictionary = None):
+    import random
+
+    #defaults
+    if dictstart is None: dictstart = 0
+    if shiftend is None: shiftend = 0
+    if minlength is None: minlength = 6
+    if dictionary is None: dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
+    
+    numdict = len(dictionary)
+    st = ""
+    l = 0
+
+    i = (numdict - 1 + dictstart + shiftend) % numdict
+    while not (i == (numdict - 1 + dictstart) % numdict and l >= minlength):
+        r = random.randint(0, len(dictionary[i]) - 1)
+        st = dictionary[i][r] + st
+        i = (i - 1) % numdict
+        l += 1
+   
+    return(st)
+
+
+
+
+
 
 
 if __name__ == "__main__":
