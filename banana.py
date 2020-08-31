@@ -30,15 +30,16 @@ def banana2dec(banana, dictstart = None, shiftend = None, dictionary = None):
     if dictionary is None: dictionary = [list("bcdfglmnprstvz"), list("aeiou")] #, list("123456")
 
     numdict = len(dictionary)
+    if (len(banana) - shiftend) % numdict != 0:
+        return("Banana non valida")
     v = 0
     for i in range(len(banana)):
         r = (numdict + i + dictstart) % numdict
         try:
             v = v * len(dictionary[r]) + dictionary[r].index(banana[i])
         except:
-            print("Carattere non valido in posizione", i+1)
-            return()
-
+            return("Carattere non valido in posizione", i+1)
+    
     return(v)
 
 def bananarandom(dictstart = None, shiftend = None, minlength = None, dictionary = None):
@@ -63,7 +64,21 @@ def bananarandom(dictstart = None, shiftend = None, minlength = None, dictionary
    
     return(st)
 
+def isbanana(banana, dictstart = None, shiftend = None, dictionary = None):
+    #defaults
+    if dictstart is None: dictstart = 0
+    if shiftend is None: shiftend = 0
+    if dictionary is None: dictionary = [list("bcdfglmnprstvz"), list("aeiou")] #, list("123456")
 
+    numdict = len(dictionary)
+    if (len(banana) - shiftend) % numdict != 0:
+        return(False)
+    for i in range(len(banana)):
+        r = (numdict + i + dictstart) % numdict
+        if banana[i] not in dictionary[r]:
+            return(False)
+
+    return(True)
 
 
 
