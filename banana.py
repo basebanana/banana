@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 
-def dec2banana(num, dictstart = 0, shiftend = 0, minlength = 0, dictionary = [list("bcdfglmnprstvz"), list("aeiou")]):
+def dec2banana(num, dictstart = None, shiftend = None, minlength = None, dictionary = None):
+    #defaults
+    if dictstart is None: dictstart = 0
+    if shiftend is None: shiftend = 0
+    if minlength is None: minlength = 0
+    if dictionary is None: dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
+    
     numdict = len(dictionary)
     v = num
     st = ""
@@ -17,7 +23,12 @@ def dec2banana(num, dictstart = 0, shiftend = 0, minlength = 0, dictionary = [li
     return(st)
 
     
-def banana2dec(banana, dictstart = 0, shiftend = 0, dictionary = [list("bcdfglmnprstvz"), list("aeiou")] ):
+def banana2dec(banana, dictstart = None, shiftend = None, dictionary = None):
+    #defaults
+    if dictstart is None: dictstart = 0
+    if shiftend is None: shiftend = 0
+    if dictionary is None: dictionary = [list("bcdfglmnprstvz"), list("aeiou")] #, list("123456")
+
     numdict = len(dictionary)
     v = 0
     for i in range(len(banana)):
