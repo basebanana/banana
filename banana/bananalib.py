@@ -30,14 +30,14 @@ def decoder(banana, dictstart=0, shiftend=0, dictionary=None):
 
     numdict = len(dictionary)
     if (len(banana) - shiftend) % numdict != 0:
-        return "Banana non valida"
+        raise ValueError("Banana non valida")
     v = 0
     for i in range(len(banana)):
         r = (numdict + i + dictstart) % numdict
         try:
             v = v * len(dictionary[r]) + dictionary[r].index(banana[i])
-        except (ValueError, KeyError) as e:
-            return "Carattere non valido in posizione", i + 1
+        except (ValueError, KeyError):
+            raise ValueError("Carattere non valido in posizione %d" % i + 1)
 
     return v
 
@@ -51,10 +51,18 @@ def dec2banana(word):
 
 
 def ribes2dec(word):
-    return decoder(word, 1, 1)
+    return decoder(word, 0, 1)
 
 
 def dec2ribes(word):
+    return encoder(word, 0, 1)
+
+
+def avocado2dec(word):
+    return decoder(word, 1, 1)
+
+
+def dec2avocado(word):
     return encoder(word, 1, 1)
 
 

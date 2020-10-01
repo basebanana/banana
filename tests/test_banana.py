@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 """Tests for `banana` package."""
+import pytest
 
-from banana import banana2dec, dec2banana, dec2ribes, ribes2dec
+from banana import (avocado2dec, banana2dec, dec2avocado, dec2banana,
+                    dec2ribes, ribes2dec)
 
 banana_conversions = {
     "ba": 0,
@@ -15,7 +17,7 @@ banana_conversions = {
     "banana": 2485,
 }
 
-ribes_conversions = {
+avocado_conversions = {
     "a": 0,
     "aca": 5,
     "ada": 10,
@@ -36,6 +38,13 @@ ribes_conversions = {
     "efa": 85,
     "ega": 90,
 }
+
+ribes_conversions = {"b": 0, "c": 1, "z": 13, "beb": 14, "bec": 15}
+
+
+@pytest.fixture(params=ribes_conversions.items())
+def ribes_known(request):
+    yield request.param
 
 
 def test_banana_to_dec_known():
@@ -58,14 +67,24 @@ def test_dec_to_banana_known():
         assert dec2banana(value) == word
 
 
-def test_ribes_to_dec_known():
-    for word, value in ribes_conversions.items():
-        assert ribes2dec(word) == value
+def test_ribes_to_dec_known(ribes_known):
+    word, value = ribes_known
+    assert ribes2dec(word) == value
 
 
 def test_dec_to_ribes_known():
     for word, value in ribes_conversions.items():
         assert dec2ribes(value) == word
+
+
+def test_avocado_to_dec_known():
+    for word, value in avocado_conversions.items():
+        assert avocado2dec(word) == value
+
+
+def test_dec_to_avocado_known():
+    for word, value in avocado_conversions.items():
+        assert dec2avocado(value) == word
 
 
 def test_answer_to_life_the_universe_and_everything():
