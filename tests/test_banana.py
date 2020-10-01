@@ -6,16 +6,13 @@ import pytest
 from banana import (avocado2dec, banana2dec, dec2avocado, dec2banana,
                     dec2ribes, ribes2dec)
 
-banana_conversions = {
-    "ba": 0,
-    "baba": 0,
-    "be": 1,
-    "beba": 70,
-    "zu": 69,
-    "bezu": 139,
-    "nana": 2485,
-    "banana": 2485,
-}
+banana_conversions = {"be": 1, "beba": 70, "zu": 69, "bezu": 139, "nana": 2485}
+
+
+@pytest.fixture(params=banana_conversions.items())
+def banana_known(request):
+    yield request.param
+
 
 avocado_conversions = {
     "a": 0,
@@ -39,6 +36,12 @@ avocado_conversions = {
     "ega": 90,
 }
 
+
+@pytest.fixture(params=avocado_conversions.items())
+def avocado_known(request):
+    yield request.param
+
+
 ribes_conversions = {"b": 0, "c": 1, "z": 13, "beb": 14, "bec": 15}
 
 
@@ -47,24 +50,21 @@ def ribes_known(request):
     yield request.param
 
 
-def test_banana_to_dec_known():
-    for word, value in banana_conversions.items():
-        assert banana2dec(word) == value
+def test_banana_to_dec_known(banana_known):
+    word, value = banana_known
+    assert banana2dec(word) == value
 
 
-def test_banana2dec_prefix_ba():
+def test_dec_to_banana_known(banana_known):
+    word, value = banana_known
+    assert dec2banana(value) == word
+
+
+def test_banana2dec_prefix_ba(banana_known):
     """un ba all'inizio non cambia nulla!"""
-    for word in banana_conversions:
-        value = banana2dec(word)
-        for prefix in ("ba", "baba", "bababa"):
-            assert banana2dec(prefix + word) == value
-
-
-def test_dec_to_banana_known():
-    for word, value in banana_conversions.items():
-        if word.startswith("ba"):
-            continue
-        assert dec2banana(value) == word
+    word, value = banana_known
+    for prefix in ("ba", "baba", "bababa"):
+        assert banana2dec(prefix + word) == value
 
 
 def test_ribes_to_dec_known(ribes_known):
@@ -72,19 +72,19 @@ def test_ribes_to_dec_known(ribes_known):
     assert ribes2dec(word) == value
 
 
-def test_dec_to_ribes_known():
-    for word, value in ribes_conversions.items():
-        assert dec2ribes(value) == word
+def test_dec_to_ribes_known(ribes_known):
+    word, value = ribes_known
+    assert dec2ribes(value) == word
 
 
-def test_avocado_to_dec_known():
-    for word, value in avocado_conversions.items():
-        assert avocado2dec(word) == value
+def test_avocado_to_dec_known(avocado_known):
+    word, value = avocado_known
+    assert avocado2dec(word) == value
 
 
-def test_dec_to_avocado_known():
-    for word, value in avocado_conversions.items():
-        assert dec2avocado(value) == word
+def test_dec_to_avocado_known(avocado_known):
+    word, value = avocado_known
+    assert dec2avocado(value) == word
 
 
 def test_answer_to_life_the_universe_and_everything():

@@ -1,7 +1,8 @@
 """Console script for banana."""
 import argparse
-from . import bananalib as banana
 import sys
+
+from . import bananalib as banana
 
 
 def ananas2dec():
@@ -23,12 +24,16 @@ def avocado2dec():
 def banana2dec():
     parser = argparse.ArgumentParser(description="Convert banana string to dec")
     parser.add_argument("banana", help="String to be converted")
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs='+')
-    parser.add_argument("--dictstart", help="Set starting dictionary", type=int, default=0)
-    parser.add_argument("--shiftend", help="Set shift for ending dictionary", type=int, default=0)
+    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
+    parser.add_argument(
+        "--dictstart", help="Set starting dictionary", type=int, default=0
+    )
+    parser.add_argument(
+        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
+    )
     args = parser.parse_args()
 
-    print(banana.banana2dec(args.banana, args.dictstart, args.shiftend, args.dictionary))
+    print(banana.banana2dec(args.banana))
 
 
 def ribes2dec():
@@ -41,13 +46,21 @@ def ribes2dec():
 
 def bananarandom():
     parser = argparse.ArgumentParser(description="Generate random banana")
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs='+')
-    parser.add_argument("--dictstart", help="Set starting dictionary", type=int, default=0)
-    parser.add_argument("--shiftend", help="Set shift for ending dictionary", type=int, default=0)
+    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
+    parser.add_argument(
+        "--dictstart", help="Set starting dictionary", type=int, default=0
+    )
+    parser.add_argument(
+        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
+    )
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=6)
     args = parser.parse_args()
 
-    print(banana.bananarandom(args.dictstart, args.shiftend, args.minlength, args.dictionary))
+    print(
+        banana.bananarandom(
+            args.dictstart, args.shiftend, args.minlength, args.dictionary
+        )
+    )
 
 
 def dec2ananas():
@@ -71,13 +84,21 @@ def dec2avocado():
 def dec2banana():
     parser = argparse.ArgumentParser(description="Convert dec number to banana")
     parser.add_argument("num", help="Number to be converted", type=int)
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs='+')
-    parser.add_argument("--dictstart", help="Set starting dictionary", type=int, default=0)
-    parser.add_argument("--shiftend", help="Set shift for ending dictionary", type=int, default=0)
+    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
+    parser.add_argument(
+        "--dictstart", help="Set starting dictionary", type=int, default=0
+    )
+    parser.add_argument(
+        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
+    )
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=0)
     args = parser.parse_args()
 
-    print(banana.dec2banana(args.num, args.dictstart, args.shiftend, args.minlength, args.dictionary))
+    print(
+        banana.dec2banana(
+            args.num, args.dictstart, args.shiftend, args.minlength, args.dictionary
+        )
+    )
 
 
 def dec2ribes():
@@ -92,9 +113,13 @@ def dec2ribes():
 def isbanana():
     parser = argparse.ArgumentParser(description="Checks if string is banana")
     parser.add_argument("banana", help="String to be checked")
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs='+')
-    parser.add_argument("--dictstart", help="Set starting dictionary", type=int, default=0)
-    parser.add_argument("--shiftend", help="Set shift for ending dictionary", type=int, default=0)
+    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
+    parser.add_argument(
+        "--dictstart", help="Set starting dictionary", type=int, default=0
+    )
+    parser.add_argument(
+        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
+    )
     args = parser.parse_args()
 
     print(banana.isbanana(args.banana, args.dictstart, args.shiftend, args.dictionary))
@@ -107,4 +132,3 @@ def main():
 if __name__ == "__main__":
     # pragma: no cover
     main()
-
