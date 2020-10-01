@@ -10,7 +10,7 @@ def ananas2dec():
     parser.add_argument("ananas", help="String to be converted")
     args = parser.parse_args()
 
-    print(banana.banana2dec(args.ananas, 1, 0))
+    print(banana.ananas2dec(args.ananas))
 
 
 def avocado2dec():
@@ -18,7 +18,7 @@ def avocado2dec():
     parser.add_argument("avocado", help="String to be converted")
     args = parser.parse_args()
 
-    print(banana.banana2dec(args.avocado, 1, 0))
+    print(banana.avocado2dec(args.avocado))
 
 
 def banana2dec():
@@ -41,7 +41,7 @@ def ribes2dec():
     parser.add_argument("ribes", help="String to be converted")
     args = parser.parse_args()
 
-    print(banana.banana2dec(args.ribes, 1, 0))
+    print(banana.ribes2dec(args.ribes))
 
 
 def bananarandom():
@@ -69,7 +69,7 @@ def dec2ananas():
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=0)
     args = parser.parse_args()
 
-    print(banana.dec2banana(args.num, 1, 0, args.minlength))
+    print(banana.dec2ananas(args.num))
 
 
 def dec2avocado():
@@ -78,7 +78,7 @@ def dec2avocado():
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=0)
     args = parser.parse_args()
 
-    print(banana.dec2banana(args.num, 1, 1, args.minlength))
+    print(banana.dec2avocado(args.num))
 
 
 def dec2banana():
@@ -94,11 +94,7 @@ def dec2banana():
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=0)
     args = parser.parse_args()
 
-    print(
-        banana.dec2banana(
-            args.num, args.dictstart, args.shiftend, args.minlength, args.dictionary
-        )
-    )
+    print(banana.dec2banana(args.num))
 
 
 def dec2ribes():
@@ -107,7 +103,7 @@ def dec2ribes():
     parser.add_argument("--minlength", help="Set minimum length", type=int, default=0)
     args = parser.parse_args()
 
-    print(banana.dec2banana(args.num, 1, 1, args.minlength))
+    print(banana.dec2ribes(args.num))
 
 
 def isbanana():
