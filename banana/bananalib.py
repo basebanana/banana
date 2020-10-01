@@ -1,7 +1,7 @@
 """Main module."""
 
 
-def dec2banana(num, dictstart=0, shiftend=0, minlength=0, dictionary=None):
+def encoder(num, dictstart=0, shiftend=0, minlength=0, dictionary=None):
     if dictionary is None:
         dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
 
@@ -11,7 +11,9 @@ def dec2banana(num, dictstart=0, shiftend=0, minlength=0, dictionary=None):
     length = 0
 
     idx = (numdict - 1 + dictstart + shiftend) % numdict
-    while not (v == 0 and idx == (numdict - 1 + dictstart) % numdict and length >= minlength):
+    while not (
+        v == 0 and idx == (numdict - 1 + dictstart) % numdict and length >= minlength
+    ):
         r = v % len(dictionary[idx])
         v = int(v / len(dictionary[idx]))
         st = dictionary[idx][r] + st
@@ -21,7 +23,7 @@ def dec2banana(num, dictstart=0, shiftend=0, minlength=0, dictionary=None):
     return st
 
 
-def banana2dec(banana, dictstart=0, shiftend=0, dictionary=None):
+def decoder(banana, dictstart=0, shiftend=0, dictionary=None):
     # defaults
     if dictionary is None:
         dictionary = [list("bcdfglmnprstvz"), list("aeiou")]  # , list("123456")
@@ -38,6 +40,22 @@ def banana2dec(banana, dictstart=0, shiftend=0, dictionary=None):
             return "Carattere non valido in posizione", i + 1
 
     return v
+
+
+def banana2dec(word):
+    return decoder(word)
+
+
+def dec2banana(word):
+    return encoder(word)
+
+
+def ribes2dec(word):
+    return decoder(word, 1, 1)
+
+
+def dec2ribes(word):
+    return encoder(word, 1, 1)
 
 
 def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
