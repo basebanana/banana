@@ -3,8 +3,8 @@
 """Tests for `banana` package."""
 import pytest
 
-from banana import (avocado2dec, banana2dec, dec2avocado, dec2banana,
-                    dec2ribes, ribes2dec)
+from banana import (ananas2dec, avocado2dec, banana2dec, dec2ananas,
+                    dec2avocado, dec2banana, dec2ribes, ribes2dec)
 
 banana_conversions = {"be": 1, "beba": 70, "zu": 69, "bezu": 139, "nana": 2485}
 
@@ -50,6 +50,34 @@ def ribes_known(request):
     yield request.param
 
 
+ananas_conversions = {
+    "ac": 1,
+    "al": 5,
+    "as": 10,
+    "ec": 15,
+    "em": 20,
+    "et": 25,
+    "id": 30,
+    "in": 35,
+    "iv": 40,
+    "of": 45,
+    "op": 50,
+    "oz": 55,
+    "ug": 60,
+    "ur": 65,
+    "acab": 70,
+    "acal": 75,
+    "acas": 80,
+    "acec": 85,
+    "acem": 90,
+}
+
+
+@pytest.fixture(params=ananas_conversions.items())
+def ananas_known(request):
+    yield request.param
+
+
 def test_banana_to_dec_known(banana_known):
     word, value = banana_known
     assert banana2dec(word) == value
@@ -85,6 +113,16 @@ def test_avocado_to_dec_known(avocado_known):
 def test_dec_to_avocado_known(avocado_known):
     word, value = avocado_known
     assert dec2avocado(value) == word
+
+
+def test_ananas_to_dec_known(ananas_known):
+    word, value = ananas_known
+    assert ananas2dec(word) == value
+
+
+def test_dec_to_ananas_known(ananas_known):
+    word, value = ananas_known
+    assert dec2ananas(value) == word
 
 
 def test_answer_to_life_the_universe_and_everything():

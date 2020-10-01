@@ -66,6 +66,14 @@ def dec2avocado(word):
     return encoder(word, 1, 1)
 
 
+def ananas2dec(word):
+    return decoder(word, 1, 0)
+
+
+def dec2ananas(word):
+    return encoder(word, 1, 0)
+
+
 def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
     import random
 
