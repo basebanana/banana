@@ -118,7 +118,7 @@ def isbanana():
     )
     args = parser.parse_args()
 
-    print(banana.isbanana(args.banana, args.dictstart, args.shiftend, args.dictionary))
+    print(banana.isbanana(args.banana))
 
 
 def main():

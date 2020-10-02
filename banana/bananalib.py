@@ -42,12 +42,32 @@ def decoder(banana, dictstart=0, shiftend=0, dictionary=None):
     return v
 
 
+def is_valid(banana, dictstart=0, shiftend=0, dictionary=None):
+    # defaults
+    if dictionary is None:
+        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]  # , list("123456")
+
+    numdict = len(dictionary)
+    if (len(banana) - shiftend) % numdict != 0:
+        return False
+    for i in range(len(banana)):
+        r = (numdict + i + dictstart) % numdict
+        if banana[i] not in dictionary[r]:
+            return False
+
+    return True
+
+
 def banana2dec(word):
     return decoder(word)
 
 
 def dec2banana(word):
     return encoder(word)
+
+
+def isbanana(word):
+    return is_valid(word)
 
 
 def ribes2dec(word):
@@ -58,6 +78,10 @@ def dec2ribes(word):
     return encoder(word, 0, 1)
 
 
+def isribes(word):
+    return is_valid(word, 0, 1)
+
+
 def avocado2dec(word):
     return decoder(word, 1, 1)
 
@@ -66,12 +90,20 @@ def dec2avocado(word):
     return encoder(word, 1, 1)
 
 
+def isavocado(word):
+    return is_valid(word, 1, 1)
+
+
 def ananas2dec(word):
     return decoder(word, 1, 0)
 
 
 def dec2ananas(word):
     return encoder(word, 1, 0)
+
+
+def isananas(word):
+    return is_valid(word, 1, 0)
 
 
 def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
@@ -93,22 +125,6 @@ def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
         length += 1
 
     return st
-
-
-def isbanana(banana, dictstart=0, shiftend=0, dictionary=None):
-    # defaults
-    if dictionary is None:
-        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]  # , list("123456")
-
-    numdict = len(dictionary)
-    if (len(banana) - shiftend) % numdict != 0:
-        return False
-    for i in range(len(banana)):
-        r = (numdict + i + dictstart) % numdict
-        if banana[i] not in dictionary[r]:
-            return False
-
-    return True
 
 
 if __name__ == "__main__":

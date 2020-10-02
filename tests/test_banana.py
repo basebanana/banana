@@ -4,7 +4,8 @@
 import pytest
 
 from banana import (ananas2dec, avocado2dec, banana2dec, dec2ananas,
-                    dec2avocado, dec2banana, dec2ribes, ribes2dec)
+                    dec2avocado, dec2banana, dec2ribes, isananas, isavocado,
+                    isbanana, isribes, ribes2dec)
 
 banana_conversions = {"be": 1, "beba": 70, "zu": 69, "bezu": 139, "nana": 2485}
 
@@ -88,6 +89,16 @@ def test_dec_to_banana_known(banana_known):
     assert dec2banana(value) == word
 
 
+def test_banana_is_banana(banana_known):
+    assert isbanana(banana_known[0])
+
+
+def test_banana_is_only_banana(banana_known):
+    assert not isribes(banana_known[0])
+    assert not isananas(banana_known[0])
+    assert not isavocado(banana_known[0])
+
+
 def test_banana2dec_prefix_ba(banana_known):
     """un ba all'inizio non cambia nulla!"""
     word, value = banana_known
@@ -105,6 +116,16 @@ def test_dec_to_ribes_known(ribes_known):
     assert dec2ribes(value) == word
 
 
+def test_ribes_is_ribes(ribes_known):
+    assert isribes(ribes_known[0])
+
+
+def test_ribes_is_only_ribes(ribes_known):
+    assert not isbanana(ribes_known[0])
+    assert not isananas(ribes_known[0])
+    assert not isavocado(ribes_known[0])
+
+
 def test_avocado_to_dec_known(avocado_known):
     word, value = avocado_known
     assert avocado2dec(word) == value
@@ -115,6 +136,16 @@ def test_dec_to_avocado_known(avocado_known):
     assert dec2avocado(value) == word
 
 
+def test_avocado_is_avocado(avocado_known):
+    assert isavocado(avocado_known[0])
+
+
+def test_avocado_is_only_avocado(avocado_known):
+    assert not isribes(avocado_known[0])
+    assert not isananas(avocado_known[0])
+    assert not isbanana(avocado_known[0])
+
+
 def test_ananas_to_dec_known(ananas_known):
     word, value = ananas_known
     assert ananas2dec(word) == value
@@ -123,6 +154,16 @@ def test_ananas_to_dec_known(ananas_known):
 def test_dec_to_ananas_known(ananas_known):
     word, value = ananas_known
     assert dec2ananas(value) == word
+
+
+def test_ananas_is_ananas(ananas_known):
+    assert isananas(ananas_known[0])
+
+
+def test_ananas_is_only_ananas(ananas_known):
+    assert not isribes(ananas_known[0])
+    assert not isbanana(ananas_known[0])
+    assert not isbanana(ananas_known[0])
 
 
 def test_answer_to_life_the_universe_and_everything():
