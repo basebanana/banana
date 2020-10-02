@@ -36,16 +36,7 @@ setup(
         "console_scripts": [
             "banana=banana.cli:main",
             "accavallavacca=banana.cli:main",
-            "ananas2dec=banana.cli:ananas2dec",
-            "avocado2dec=banana.cli:avocado2dec",
-            "banana2dec=banana.cli:banana2dec",
-            "ribes2dec=banana.cli:ribes2dec",
             "bananarandom=banana.cli:bananarandom",
-            "dec2ananas=banana.cli:dec2ananas",
-            "dec2avocado=banana.cli:dec2avocado",
-            "dec2banana=banana.cli:dec2banana",
-            "dec2ribes=banana.cli:dec2ribes",
-            "isbanana=banana.cli:isbanana",
         ]
     },
     install_requires=requirements,
