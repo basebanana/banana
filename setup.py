@@ -35,6 +35,7 @@ setup(
     entry_points={
         "console_scripts": [
             "banana=banana.cli:main",
+            "accavallavacca=banana.cli:main",
             "ananas2dec=banana.cli:ananas2dec",
             "avocado2dec=banana.cli:avocado2dec",
             "banana2dec=banana.cli:banana2dec",

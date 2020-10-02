@@ -17,7 +17,6 @@ def get_codec(args):
         kwargs["dictstart"] = args.dictstart
     if args.shiftend:
         kwargs["shiftend"] = args.shiftend
-    print(kwargs)
     return banana.Codec(**kwargs)
 
 
@@ -69,7 +68,8 @@ def main():
 
     args = parser.parse_args()
     if not hasattr(args, "func"):
-        print("metti un sottocomando!")
+        print("You need to select one subcommand. \nUse --help", file=sys.stderr)
+        # parser.print_help()
         sys.exit(1)
     args.func(args)
 
