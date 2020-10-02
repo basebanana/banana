@@ -1,109 +1,84 @@
 """Main module."""
 
 
-def encoder(num, dictstart=0, shiftend=0, minlength=0, dictionary=None):
-    if dictionary is None:
-        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
+class Codec:
+    def __init__(self, dictstart=0, shiftend=0, minlength=0, dictionary=None):
+        self.dictstart = dictstart
+        self.shiftend = shiftend
+        if dictionary is None:
+            self.dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
+        else:
+            self.dictionary = dictionary
 
-    numdict = len(dictionary)
-    v = num
-    st = ""
-    length = 0
+    def encode(self, num, minlength=0):
+        dictionary = self.dictionary
+        numdict = len(dictionary)
+        v = num
+        st = ""
+        length = 0
 
-    idx = (numdict - 1 + dictstart + shiftend) % numdict
-    while not (
-        v == 0 and idx == (numdict - 1 + dictstart) % numdict and length >= minlength
-    ):
-        r = v % len(dictionary[idx])
-        v = int(v / len(dictionary[idx]))
-        st = dictionary[idx][r] + st
-        idx = (idx - 1) % numdict
-        length += 1
+        idx = (numdict - 1 + self.dictstart + self.shiftend) % numdict
+        while not (
+            v == 0
+            and idx == (numdict - 1 + self.dictstart) % numdict
+            and length >= minlength
+        ):
+            r = v % len(dictionary[idx])
+            v = int(v / len(dictionary[idx]))
+            st = dictionary[idx][r] + st
+            idx = (idx - 1) % numdict
+            length += 1
 
-    return st
+        return st
 
+    def decode(self, word):
+        dictionary = self.dictionary
 
-def decoder(banana, dictstart=0, shiftend=0, dictionary=None):
-    # defaults
-    if dictionary is None:
-        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]  # , list("123456")
+        numdict = len(dictionary)
+        if (len(word) - self.shiftend) % numdict != 0:
+            raise ValueError("Banana non valida")
+        v = 0
+        for i in range(len(word)):
+            r = (numdict + i + self.dictstart) % numdict
+            try:
+                v = v * len(dictionary[r]) + dictionary[r].index(word[i])
+            except (ValueError, KeyError):
+                raise ValueError("Carattere non valido in posizione %d" % i + 1)
 
-    numdict = len(dictionary)
-    if (len(banana) - shiftend) % numdict != 0:
-        raise ValueError("Banana non valida")
-    v = 0
-    for i in range(len(banana)):
-        r = (numdict + i + dictstart) % numdict
-        try:
-            v = v * len(dictionary[r]) + dictionary[r].index(banana[i])
-        except (ValueError, KeyError):
-            raise ValueError("Carattere non valido in posizione %d" % i + 1)
+        return v
 
-    return v
+    def is_valid(self, word):
+        dictionary = self.dictionary
 
-
-def is_valid(banana, dictstart=0, shiftend=0, dictionary=None):
-    # defaults
-    if dictionary is None:
-        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]  # , list("123456")
-
-    numdict = len(dictionary)
-    if (len(banana) - shiftend) % numdict != 0:
-        return False
-    for i in range(len(banana)):
-        r = (numdict + i + dictstart) % numdict
-        if banana[i] not in dictionary[r]:
+        numdict = len(dictionary)
+        if (len(word) - self.shiftend) % numdict != 0:
             return False
+        for i in range(len(word)):
+            r = (numdict + i + self.dictstart) % numdict
+            if word[i] not in dictionary[r]:
+                return False
 
-    return True
-
-
-def banana2dec(word):
-    return decoder(word)
-
-
-def dec2banana(word):
-    return encoder(word)
+        return True
 
 
-def isbanana(word):
-    return is_valid(word)
+class BananaCodec(Codec):
+    def __init__(self):
+        super().__init__()
 
 
-def ribes2dec(word):
-    return decoder(word, 0, 1)
+class RibesCodec(Codec):
+    def __init__(self):
+        super().__init__(0, 1)
 
 
-def dec2ribes(word):
-    return encoder(word, 0, 1)
+class AnanasCodec(Codec):
+    def __init__(self):
+        super().__init__(1, 0)
 
 
-def isribes(word):
-    return is_valid(word, 0, 1)
-
-
-def avocado2dec(word):
-    return decoder(word, 1, 1)
-
-
-def dec2avocado(word):
-    return encoder(word, 1, 1)
-
-
-def isavocado(word):
-    return is_valid(word, 1, 1)
-
-
-def ananas2dec(word):
-    return decoder(word, 1, 0)
-
-
-def dec2ananas(word):
-    return encoder(word, 1, 0)
-
-
-def isananas(word):
-    return is_valid(word, 1, 0)
+class AvocadoCodec(Codec):
+    def __init__(self):
+        super().__init__(1, 1)
 
 
 def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
