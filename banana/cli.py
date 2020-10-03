@@ -39,6 +39,10 @@ def main_check(args):
         sys.exit(1)
 
 
+def main_random(args):
+    print(get_codec(args).random(minlength=args.minlength))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Convert dec number to banana")
     parser.add_argument("--ananas", action="store_true")
@@ -66,31 +70,16 @@ def main():
     check.add_argument("--quiet", "-q", action="store_true")
     check.set_defaults(func=main_check)
 
+    rand = sub.add_parser("random", help="Generate random banana")
+    rand.add_argument("--minlength", help="Set minimum length", type=int, default=6)
+    rand.set_defaults(func=main_random)
+
     args = parser.parse_args()
     if not hasattr(args, "func"):
         print("You need to select one subcommand. \nUse --help", file=sys.stderr)
         # parser.print_help()
         sys.exit(1)
     args.func(args)
-
-
-def bananarandom():
-    parser = argparse.ArgumentParser(description="Generate random banana")
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
-    parser.add_argument(
-        "--dictstart", help="Set starting dictionary", type=int, default=0
-    )
-    parser.add_argument(
-        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
-    )
-    parser.add_argument("--minlength", help="Set minimum length", type=int, default=6)
-    args = parser.parse_args()
-
-    print(
-        banana.bananarandom(
-            args.dictstart, args.shiftend, args.minlength, args.dictionary
-        )
-    )
 
 
 if __name__ == "__main__":

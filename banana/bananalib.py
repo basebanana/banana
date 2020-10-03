@@ -1,4 +1,5 @@
 """Main module."""
+import random
 
 
 class Codec:
@@ -60,6 +61,21 @@ class Codec:
 
         return True
 
+    def random(self, minlength=6):
+
+        numdict = len(self.dictionary)
+        word = ""
+
+        curr_dict = (numdict - 1 + self.dictstart + self.shiftend) % numdict
+        final_dict = (numdict - 1 + self.dictstart) % numdict
+        print("final", final_dict)
+        while curr_dict != final_dict or len(word) < minlength:
+            word = random.choice(self.dictionary[curr_dict]) + word
+            curr_dict = (curr_dict - 1) % numdict
+            print("curr", curr_dict)
+
+        return word
+
 
 class BananaCodec(Codec):
     def __init__(self):
@@ -79,27 +95,6 @@ class AnanasCodec(Codec):
 class AvocadoCodec(Codec):
     def __init__(self):
         super().__init__(1, 1)
-
-
-def bananarandom(dictstart=0, shiftend=0, minlength=6, dictionary=None):
-    import random
-
-    # defaults
-    if dictionary is None:
-        dictionary = [list("bcdfglmnprstvz"), list("aeiou")]
-
-    numdict = len(dictionary)
-    st = ""
-    length = 0
-
-    i = (numdict - 1 + dictstart + shiftend) % numdict
-    while not (i == (numdict - 1 + dictstart) % numdict and length >= minlength):
-        r = random.randint(0, len(dictionary[i]) - 1)
-        st = dictionary[i][r] + st
-        i = (i - 1) % numdict
-        length += 1
-
-    return st
 
 
 if __name__ == "__main__":
