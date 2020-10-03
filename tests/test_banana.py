@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 """Tests for `banana` package."""
+import random
+
 import pytest
 
 from banana import AnanasCodec, AvocadoCodec, BananaCodec, RibesCodec
@@ -174,3 +176,45 @@ def test_answer_to_life_the_universe_and_everything():
     banana = banana_codec.decode("banana")
     assert banana != 42
     assert banana == 2485
+
+
+def test_random_len_0():
+    assert banana_codec.random(minlength=0) == ""
+    assert ananas_codec.random(minlength=0) == ""
+    assert avocado_codec.random(minlength=0) == ""
+    assert ribes_codec.random(minlength=0) == ""
+
+
+def test_banana_random_minlength_even():
+    for l in (0, 2, 4, 6, 8, 10, 12):
+        assert len(banana_codec.random(minlength=l)) == l
+        assert len(ananas_codec.random(minlength=l)) == l
+
+
+def test_banana_random_minlength_odd():
+    for l in (1, 3, 5, 7, 9):
+        assert len(banana_codec.random(minlength=l)) == l + 1
+        assert len(ananas_codec.random(minlength=l)) == l + 1
+
+
+def test_ribes_random_minlength_even():
+    for l in (2, 4, 6, 8, 10, 12):
+        assert len(ribes_codec.random(minlength=l)) == l + 1
+        assert len(avocado_codec.random(minlength=l)) == l + 1
+
+
+def test_ribes_random_minlength_odd():
+    for l in (1, 3, 5, 7, 9):
+        assert len(ribes_codec.random(minlength=l)) == l
+        assert len(avocado_codec.random(minlength=l)) == l
+
+
+def test_random_coherence_please():
+    for codec in (ribes_codec, ananas_codec, avocado_codec, banana_codec):
+        for seed in range(30):
+            word = codec.random(prng=random.Random(seed))
+            assert codec.is_valid(word), "%s (seed %d) non valido per %s" % (
+                word,
+                seed,
+                codec.__class__.__name__,
+            )

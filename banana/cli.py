@@ -1,5 +1,7 @@
 """Console script for banana."""
 import argparse
+import logging
+import random
 import sys
 
 import banana
@@ -10,6 +12,10 @@ def get_codec(args):
         return banana.BananaCodec()
     if args.ananas:
         return banana.AnanasCodec()
+    if args.ribes:
+        return banana.RibesCodec()
+    if args.avocado:
+        return banana.AvocadoCodec()
     kwargs = {}
     if args.dictionary:
         kwargs["dictionary"] = args.dictionary
@@ -40,16 +46,31 @@ def main_check(args):
 
 
 def main_random(args):
-    print(get_codec(args).random(minlength=args.minlength))
+    codec = get_codec(args)
+    kwargs = dict(minlength=args.minlength)
+    if args.seed:
+        kwargs["prng"] = random.Random(args.seed)
+    print(codec.random(**kwargs))
+
+
+def colon_separated_list(s):
+    return s.split(":")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Convert dec number to banana")
+    parser.add_argument(
+        "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="WARN"
+    )
     parser.add_argument("--ananas", action="store_true")
     parser.add_argument("--avocado", action="store_true")
     parser.add_argument("--banana", action="store_true")
     parser.add_argument("--ribes", action="store_true")
-    parser.add_argument("--dictionary", help="Set dictionary", type=list, nargs="+")
+    parser.add_argument(
+        "--dictionary",
+        help="Set dictionary in colon-separated list",
+        type=colon_separated_list,
+    )
     parser.add_argument(
         "--dictstart", help="Set starting dictionary", type=int, default=0
     )
@@ -72,6 +93,7 @@ def main():
 
     rand = sub.add_parser("random", help="Generate random banana")
     rand.add_argument("--minlength", help="Set minimum length", type=int, default=6)
+    rand.add_argument("--seed", type=int, default=None)
     rand.set_defaults(func=main_random)
 
     args = parser.parse_args()
@@ -79,6 +101,7 @@ def main():
         print("You need to select one subcommand. \nUse --help", file=sys.stderr)
         # parser.print_help()
         sys.exit(1)
+    logging.basicConfig(level=args.log_level)
     args.func(args)
 
 

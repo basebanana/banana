@@ -1,5 +1,8 @@
 """Main module."""
+import logging
 import random
+
+log = logging.getLogger("bananalib")
 
 
 class Codec:
@@ -61,18 +64,18 @@ class Codec:
 
         return True
 
-    def random(self, minlength=6):
-
+    def random(self, minlength=6, prng=random.Random()):
         numdict = len(self.dictionary)
         word = ""
 
+        if minlength < 1:
+            return ""
+
         curr_dict = (numdict - 1 + self.dictstart + self.shiftend) % numdict
         final_dict = (numdict - 1 + self.dictstart) % numdict
-        print("final", final_dict)
         while curr_dict != final_dict or len(word) < minlength:
-            word = random.choice(self.dictionary[curr_dict]) + word
+            word = prng.choice(self.dictionary[curr_dict]) + word
             curr_dict = (curr_dict - 1) % numdict
-            print("curr", curr_dict)
 
         return word
 
