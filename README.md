@@ -9,7 +9,12 @@ banana
 Features
 --------
 
--   TODO
+ - Supports multiple, super-interesting bases: banana |:banana:|, ananas |:pineapple:|, ribes |:grapes:|, avocado |:avocado:|
+ - Encode and decode easily
+ - Check validity of encoded words
+ - Generate random words |:game_die:|
+ - It's easy to support additional bases based on the same principles |:jigsaw:|
+
 
 Credits
 -------
