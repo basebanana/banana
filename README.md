@@ -19,4 +19,4 @@ Features
 Credits
 -------
 
-All hail Stefano Bartezzaghi
+Special thanks to Stefano Bartezzaghi
