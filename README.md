@@ -9,14 +9,16 @@ banana
 Features
 --------
 
- - Supports multiple, super-interesting bases: banana |:banana:|, ananas |:pineapple:|, ribes |:grapes:|, avocado |:avocado:|
+ - Supports multiple, super-interesting bases: banana 🍌, ananas 🍍, ribes 🍇 avocado 🥑
  - Encode and decode easily
  - Check validity of encoded words
- - Generate random words |:game_die:|
- - It's easy to support additional bases based on the same principles |:jigsaw:|
+ - Generate random words 🎲
+ - It's easy to support additional bases based on the same principles 🧩
 
 
 Credits
 -------
+Thanks to Autoscatto, Baku, Boyska for suggestions and developement.
 
-Special thanks to Stefano Bartezzaghi
+Special thanks to Stefano Bartezzaghi.
+Loosely inspired by Stefano Bartezzaghi's book "Accavallavacca. Inventario di parole da gioco", Milano, Bompiani, 1992. ISBN 88-452-1948-8.
