@@ -27,7 +27,11 @@ def get_codec(args):
 
 
 def main_encode(args):
-    print(get_codec(args).encode(args.num))
+    codec = get_codec(args)
+    kwargs = dict(num=args.num)
+    if args.minlength:
+        kwargs["minlength"] = args.minlength
+    print(codec.encode(**kwargs))
 
 
 def main_decode(args):
@@ -80,6 +84,7 @@ def main():
     sub = parser.add_subparsers()
     encode = sub.add_parser("encode", help="Convert numbers to words")
     encode.add_argument("num", type=int)
+    encode.add_argument("--minlength", help="Set minimum length", type=int, default=6)
     encode.set_defaults(func=main_encode)
 
     decode = sub.add_parser("decode", help="Convert words to numbers")
