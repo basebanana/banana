@@ -59,33 +59,33 @@ def main():
         "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="WARN"
     )
     parser.add_argument(
-        "--alphabets",
+        "--alphabets", "-a",
         help="Set alphabets in colon-separated list",
         type=colon_separated_list,
     )
     parser.add_argument(
-        "--shiftalpha", help="Set shift for alphabets", type=int, default=0
+        "--shiftalpha", "-s", help="Set shift for alphabets", type=int, default=0
     )
     parser.add_argument(
-        "--alphaend", help="Set shift for ending alphabets", type=int, default=0
+        "--alphaend", "-e", help="Set ending alphabet", type=int, default=0
     )
     sub = parser.add_subparsers()
-    encode = sub.add_parser("encode", help="Convert numbers to words")
+    encode = sub.add_parser("encode", help="Convert number to word")
     encode.add_argument("num", type=int)
-    encode.add_argument("--minlength", help="Set minimum length", type=int, default=6)
+    encode.add_argument("--minlength", "-l", help="Set minimum length", type=int, default=6)
     encode.set_defaults(func=main_encode)
 
-    decode = sub.add_parser("decode", help="Convert words to numbers")
+    decode = sub.add_parser("decode", help="Convert word to number")
     decode.add_argument("word")
     decode.set_defaults(func=main_decode)
 
-    check = sub.add_parser("check", help="Convert words to numbers")
+    check = sub.add_parser("check", help="Check if word is banana")
     check.add_argument("word")
     check.add_argument("--quiet", "-q", action="store_true")
     check.set_defaults(func=main_check)
 
     rand = sub.add_parser("random", help="Generate random banana")
-    rand.add_argument("--minlength", help="Set minimum length", type=int, default=6)
+    rand.add_argument("--minlength", "-l", help="Set minimum length", type=int, default=6)
     rand.add_argument("--seed", type=int, default=None)
     rand.set_defaults(func=main_random)
 
