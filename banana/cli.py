@@ -17,12 +17,12 @@ def get_codec(args):
     if args.avocado:
         return banana.AvocadoCodec()
     kwargs = {}
-    if args.dictionary:
-        kwargs["dictionary"] = args.dictionary
-    if args.dictstart:
-        kwargs["dictstart"] = args.dictstart
-    if args.shiftend:
-        kwargs["shiftend"] = args.shiftend
+    if args.alphabets:
+        kwargs["alphabets"] = args.alphabets
+    if args.shiftalpha:
+        kwargs["shiftalpha"] = args.shiftalpha
+    if args.alphaend:
+        kwargs["alphaend"] = args.alphaend
     return banana.Codec(**kwargs)
 
 
@@ -58,7 +58,7 @@ def colon_separated_list(s):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Convert dec number to banana")
+    parser = argparse.ArgumentParser(description="Convert number to banana")
     parser.add_argument(
         "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="WARN"
     )
@@ -67,15 +67,15 @@ def main():
     parser.add_argument("--banana", action="store_true")
     parser.add_argument("--ribes", action="store_true")
     parser.add_argument(
-        "--dictionary",
-        help="Set dictionary in colon-separated list",
+        "--alphabets",
+        help="Set alphabets in colon-separated list",
         type=colon_separated_list,
     )
     parser.add_argument(
-        "--dictstart", help="Set starting dictionary", type=int, default=0
+        "--shiftalpha", help="Set shift for alphabets", type=int, default=0
     )
     parser.add_argument(
-        "--shiftend", help="Set shift for ending dictionary", type=int, default=0
+        "--alphaend", help="Set shift for ending alphabets", type=int, default=0
     )
     sub = parser.add_subparsers()
     encode = sub.add_parser("encode", help="Convert numbers to words")

@@ -1,5 +1,5 @@
 """Top-level package for banana."""
-from .bananalib import *
+from .libbanana import *
 
 __author__ = """itec"""
 __email__ = "itec@ventuordici.org"
