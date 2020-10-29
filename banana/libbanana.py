@@ -40,14 +40,14 @@ class Codec:
 
         numalpha = len(alphabets)
         if (len(word) - self.alphaend) % numalpha != 0:
-            raise ValueError("Banana non valida")
+            raise ValueError("Invalid banana")
         v = 0
         for i in range(len(word)):
             r = (numalpha + i + self.shiftalpha) % numalpha
             try:
                 v = v * len(alphabets[r]) + alphabets[r].index(word[i])
             except (ValueError, KeyError):
-                raise ValueError("Carattere non valido in posizione %d" % i + 1)
+                raise ValueError("Invalid character in position %d" % i + 1)
 
         return v
 
