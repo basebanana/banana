@@ -8,14 +8,6 @@ import banana
 
 
 def get_codec(args):
-    if args.banana:
-        return banana.BananaCodec()
-    if args.ananas:
-        return banana.AnanasCodec()
-    if args.ribes:
-        return banana.RibesCodec()
-    if args.avocado:
-        return banana.AvocadoCodec()
     kwargs = {}
     if args.alphabets:
         kwargs["alphabets"] = args.alphabets
@@ -66,10 +58,6 @@ def main():
     parser.add_argument(
         "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="WARN"
     )
-    parser.add_argument("--ananas", action="store_true")
-    parser.add_argument("--avocado", action="store_true")
-    parser.add_argument("--banana", action="store_true")
-    parser.add_argument("--ribes", action="store_true")
     parser.add_argument(
         "--alphabets",
         help="Set alphabets in colon-separated list",
