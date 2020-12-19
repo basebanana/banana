@@ -72,7 +72,7 @@ def main():
     sub = parser.add_subparsers()
     encode = sub.add_parser("encode", help="Convert number to word")
     encode.add_argument("num", type=int)
-    encode.add_argument("--minlength", "-l", help="Set minimum length", type=int, default=6)
+    encode.add_argument("--minlength", "-l", help="Set minimum length", type=int, default=1)
     encode.set_defaults(func=main_encode)
 
     decode = sub.add_parser("decode", help="Convert word to number")

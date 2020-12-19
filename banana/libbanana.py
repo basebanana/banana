@@ -85,20 +85,5 @@ class BananaCodec(Codec):
         super().__init__()
 
 
-class RibesCodec(Codec):
-    def __init__(self):
-        super().__init__(0, 1)
-
-
-class AnanasCodec(Codec):
-    def __init__(self):
-        super().__init__(1, 0)
-
-
-class AvocadoCodec(Codec):
-    def __init__(self):
-        super().__init__(1, 1)
-
-
 if __name__ == "__main__":
     print("Hi I'm the basebanana library")
