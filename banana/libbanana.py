@@ -30,7 +30,7 @@ class Codec:
             r = v % len(alphabets[idx])
             v = int(v / len(alphabets[idx]))
             st = alphabets[idx][r] + st
-            idx = (idx - 1) % numalpha
+            idx = (idx + numalpha - 1) % numalpha
             length += 1
 
         return st
