@@ -4,10 +4,10 @@
 
 from setuptools import find_packages, setup
 
-with open("README.md") as readme_file:
+with open("README.md", encoding="utf-8") as readme_file:
     readme = readme_file.read()
 
-with open("HISTORY.rst") as history_file:
+with open("HISTORY.rst", encoding="utf-8") as history_file:
     history = history_file.read()
 
 requirements = []
@@ -30,6 +30,10 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     description="basebanana",
     entry_points={
@@ -48,7 +52,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://git.lattuga.net/itec/banana",
-    version="0.2.0",
+    url="https://github.com/basebanana/banana",
+    version="0.2.1",
     zip_safe=False,
 )
